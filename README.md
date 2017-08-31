@@ -26,20 +26,18 @@
 ## Assumptions
 * Authentication, encryption and user-management are assumed to be handled by other components.
 
-## Components
-* REST API Server
-Methods, parameters table
-
-* Data Layer
-
 ## Requirements
 * Docker (> version 17.05)
 * GNU make
 
-## Build & Push
+## Build
 ```
 make build
-make push
+```
+
+## Push
+```
+make push DOCKER_REGISTRY=$REGISTRY
 ```
 
 ## Run
