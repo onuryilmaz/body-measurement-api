@@ -45,7 +45,7 @@ func TestRESTServer(t *testing.T) {
 			bm.Timestamp = time.Now().AddDate(-1, 0, 0)
 			b := new(bytes.Buffer)
 			json.NewEncoder(b).Encode(bm)
-			res, err := http.Post("http://localhost:"+options.ServerPort+"/api/save", "application/json; charset=utf-8", b)
+			res, err := http.Post("http://localhost:" + options.ServerPort + "/api/save", "application/json; charset=utf-8", b)
 			So(err, ShouldBeNil)
 			So(res.StatusCode, ShouldEqual, 200)
 
