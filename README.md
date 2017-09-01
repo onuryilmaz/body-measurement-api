@@ -49,3 +49,7 @@ make run
 ```
 make test
 ```
+
+## Dependency Management
+* [govendor](https://github.com/kardianos/govendor) is used for dependency management.
+* Fixed versions can be checked from [vendor.json](vendor/vendor.json)
