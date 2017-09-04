@@ -15,4 +15,4 @@ run:
 	docker run --rm -p 8080:$(EXPOSED_PORT) $(IMAGE):$(VERSION) --log-level=debug
 
 test:
-	docker build --rm --target=tester .
+	docker build --no-cache --rm --target=tester .

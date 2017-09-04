@@ -26,6 +26,9 @@ func TestRESTServer(t *testing.T) {
 	Convey("Start and check RESTServer", t, func() {
 		So(RESTServer, ShouldNotBeNil)
 
+		// Wait for server is up
+		time.Sleep(time.Second)
+
 		Convey("Record a measurement with GET", func() {
 			So(len(dataProvider.DB), ShouldEqual, 0)
 			response, err := http.Get("http://localhost:" + options.ServerPort + "/api/record/testUser/testType/1.1")
