@@ -30,9 +30,18 @@
 * Docker (> version 17.05)
 * GNU make
 
+## Test
+```
+make test
+```
+
 ## Build
 ```
 make build
+```
+## Run
+```
+make run
 ```
 
 ## Push
@@ -40,16 +49,19 @@ make build
 make push DOCKER_REGISTRY=$REGISTRY
 ```
 
-## Run
-```
-make run
-```
-
-## Test
-```
-make test
-```
-
 ## Dependency Management
 * [govendor](https://github.com/kardianos/govendor) is used for dependency management.
 * Fixed versions can be checked from [vendor.json](vendor/vendor.json)
+
+## Example Flow
+```
+$ make build
+$ make run
+# on another shell
+$ curl -i localhost:8080/api/record/onuryilmaz/weight/80
+HTTP/1.1 200 OK
+..
+$ curl localhost:8080/api/last/onuryilmaz/weight
+{"ID":1,"Type":"weight","Value":80,"UserID":"onuryilmaz","Timestamp":"2017-09-02T07:26:22.78658334Z"}
+
+```

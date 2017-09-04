@@ -4,14 +4,15 @@ import (
 	"flag"
 	"os"
 
+	"os/signal"
+	"sync"
+	"syscall"
+
 	"github.com/Sirupsen/logrus"
 	"github.com/onuryilmaz/body-measurement-api/pkg/commons"
 	"github.com/onuryilmaz/body-measurement-api/pkg/server"
 	"github.com/onuryilmaz/body-measurement-api/pkg/store"
 	"github.com/spf13/pflag"
-	"os/signal"
-	"sync"
-	"syscall"
 )
 
 var options commons.Options

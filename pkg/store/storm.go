@@ -1,11 +1,12 @@
 package store
 
 import (
+	"time"
+
 	"github.com/Sirupsen/logrus"
 	"github.com/asdine/storm"
 	"github.com/asdine/storm/q"
 	"github.com/onuryilmaz/body-measurement-api/pkg/commons"
-	"time"
 )
 
 // StormStoreProvider provides data storage with Bolt Database wrapped by Storm layer

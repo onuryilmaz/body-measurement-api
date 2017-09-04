@@ -2,11 +2,12 @@ package store
 
 import (
 	"fmt"
-	"github.com/onuryilmaz/body-measurement-api/pkg/commons"
-	. "github.com/smartystreets/goconvey/convey"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/onuryilmaz/body-measurement-api/pkg/commons"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestStormProvider(t *testing.T) {

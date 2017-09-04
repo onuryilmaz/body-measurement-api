@@ -15,4 +15,4 @@ run:
 	docker run --rm -p 8080:$(EXPOSED_PORT) $(IMAGE):$(VERSION) --log-level=debug
 
 test:
-	go test -v $(shell go list ./... | grep -v /vendor/)
+	docker build --rm --target=tester .

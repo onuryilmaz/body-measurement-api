@@ -81,12 +81,12 @@ func (r *REST) filterHandler(w http.ResponseWriter, req *http.Request, p httprou
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
-	} else {
-		if err := json.NewEncoder(w).Encode(data); err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
 	}
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 }
 
 func (r *REST) lastHandler(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
@@ -100,12 +100,12 @@ func (r *REST) lastHandler(w http.ResponseWriter, req *http.Request, p httproute
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
-	} else {
-		if err := json.NewEncoder(w).Encode(data); err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
 	}
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 }
 
 func (r *REST) recordHandler(w http.ResponseWriter, req *http.Request, p httprouter.Params) {
@@ -140,8 +140,8 @@ func (r *REST) recordHandler(w http.ResponseWriter, req *http.Request, p httprou
 		logrus.Error("Error recording data:", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
-	} else {
-		w.WriteHeader(http.StatusOK)
-		return
 	}
+	w.WriteHeader(http.StatusOK)
+	return
+
 }
