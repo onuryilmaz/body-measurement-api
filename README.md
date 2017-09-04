@@ -53,13 +53,23 @@ make push DOCKER_REGISTRY=$REGISTRY
 ```
 $ make build
 $ make run
+
 # on another shell
 $ curl -i localhost:8080/api/record/onuryilmaz/weight/80
 HTTP/1.1 200 OK
 ..
-$ curl localhost:8080/api/last/onuryilmaz/weight
-{"ID":1,"Type":"weight","Value":80,"UserID":"onuryilmaz","Timestamp":"2017-09-02T07:26:22.78658334Z"}
+$ curl -i localhost:8080/api/record/onuryilmaz/weight/81
+HTTP/1.1 200 OK
+..
 
+$ curl localhost:8080/api/last/onuryilmaz/weight
+{"ID":2,"Type":"weight","Value":81,"UserID":"onuryilmaz","Timestamp":"2017-09-04T07:48:30.758669975Z"}
+
+$ curl localhost:8080/api/filter/onuryilmaz/weight/1501545600/1533081600
+ [ 
+  {"ID":1,"Type":"weight","Value":80,"UserID":"onuryilmaz","Timestamp":"2017-09-04T07:47:51.999662761Z"},
+  {"ID":2,"Type":"weight","Value":81,"UserID":"onuryilmaz","Timestamp":"2017-09-04T07:48:30.758669975Z"}
+ ]
 ```
 
 ## Dependency Management
