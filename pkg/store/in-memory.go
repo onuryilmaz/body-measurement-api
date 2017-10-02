@@ -29,17 +29,6 @@ func (tdp *InMemoryDataProvider) Put(bm commons.BodyMeasurement) error {
 	return nil
 }
 
-// Last returns the last BodyMeasurement for the userId and measurementType
-func (tdp *InMemoryDataProvider) Last(userId string, measurementType string) (commons.BodyMeasurement, error) {
-
-	for i := len(tdp.DB); i > 0; i-- {
-		tmp := tdp.DB[i-1]
-		if tmp.UserID == userId && tmp.Type == measurementType {
-			return tmp, nil
-		}
-	}
-	return commons.BodyMeasurement{}, errors.New("Not found any data for the customer!")
-}
 
 // Filter returns the data instances falling into the time frame
 func (tdp *InMemoryDataProvider) Filter(userId string, measurementType string, from time.Time, to time.Time) ([]commons.BodyMeasurement, error) {

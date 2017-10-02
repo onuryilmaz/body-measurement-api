@@ -9,6 +9,7 @@ import (
 type Options struct {
 	ServerPort       string
 	DatabaseFileName string
+	TrackingAddress         string
 	LogLevel         string
 }
 
@@ -20,3 +21,15 @@ type BodyMeasurement struct {
 	UserID    string    `storm:"index"`
 	Timestamp time.Time `storm:"index"`
 }
+
+type TrackingData struct {
+	ID             int       `storm:"id,increment"`
+	Timestamp      time.Time `storm:"index"`
+	Type           string    `storm:"index"`
+	DataOwnerId    string `storm:"index"`
+	DataConsumerId string `storm:"index"`
+
+	// Further query related data
+}
+
+

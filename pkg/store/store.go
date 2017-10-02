@@ -7,11 +7,18 @@ import (
 	"github.com/onuryilmaz/body-measurement-api/pkg/commons"
 )
 
-// Provider interface defines required actions for data store layer
-type Provider interface {
+// DataProvider interface defines required actions for data store layer
+type DataProvider interface {
 	Start() error
 	Stop() error
 	Filter(user string, measurementType string, from time.Time, to time.Time) ([]commons.BodyMeasurement, error)
-	Last(user string, measurementType string) (commons.BodyMeasurement, error)
 	Put(commons.BodyMeasurement) error
+}
+
+// TrackingProvider interface defines required actions for data store layer of tracking events
+type TrackingProvider interface {
+	Start() error
+	Stop() error
+	Filter(dataConsumer string, dataOwner string, measurementType string, from time.Time, to time.Time) ([]commons.TrackingData, error)
+	Put(data commons.TrackingData) error
 }
