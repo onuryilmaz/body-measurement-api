@@ -37,6 +37,7 @@ func main() {
 		logrus.Fatal("Error during log level parse:", err)
 	}
 
+	logrus.Warn("Starting Data API Server..")
 	sigs := make(chan os.Signal, 1)
 	stop := make(chan struct{})
 	signal.Notify(sigs, os.Interrupt, syscall.SIGTERM)

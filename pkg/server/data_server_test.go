@@ -13,6 +13,7 @@ import (
 	"github.com/onuryilmaz/body-measurement-api/pkg/store"
 	"github.com/phayes/freeport"
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/onuryilmaz/body-measurement-api/pkg/tracker"
 )
 
 func TestRESTServer(t *testing.T) {
@@ -20,7 +21,8 @@ func TestRESTServer(t *testing.T) {
 	options := commons.Options{}
 	options.ServerPort = fmt.Sprintf("%v", freeport.GetPort())
 	dataProvider := &store.InMemoryDataProvider{}
-	RESTServer := NewREST(options, dataProvider)
+	trackerGateway := tracker.NewTrackerGateway(options)
+	RESTServer := NewREST(options, dataProvider, trackerGateway)
 	RESTServer.Start()
 
 	Convey("Start and check RESTServer", t, func() {
@@ -51,26 +53,6 @@ func TestRESTServer(t *testing.T) {
 			res, err := http.Post("http://localhost:" + options.ServerPort + "/api/save", "application/json; charset=utf-8", b)
 			So(err, ShouldBeNil)
 			So(res.StatusCode, ShouldEqual, 200)
-
-		})
-
-		Convey("Get last measurement", func() {
-			response, err := http.Get("http://localhost:" + options.ServerPort + "/api/last/testUser/testType")
-			So(err, ShouldBeNil)
-			bm := &commons.BodyMeasurement{}
-			err = json.NewDecoder(response.Body).Decode(bm)
-			So(err, ShouldBeNil)
-			So(bm.Type, ShouldEqual, "testType")
-			So(bm.UserID, ShouldEqual, "testUser")
-			So(bm.Value, ShouldEqual, 1.2)
-		})
-
-		Convey("Filter measurement", func() {
-			response, err := http.Get("http://localhost:" + options.ServerPort + "/api/last/testUser/testType")
-			So(err, ShouldBeNil)
-			bm := &commons.BodyMeasurement{}
-			err = json.NewDecoder(response.Body).Decode(bm)
-			So(err, ShouldBeNil)
 
 		})
 	})
