@@ -3,6 +3,7 @@ package store
 import (
 	"time"
 
+	"errors"
 	"github.com/Sirupsen/logrus"
 	"github.com/asdine/storm"
 	"github.com/asdine/storm/q"
@@ -51,7 +52,22 @@ func (sp *StormStoreTrackingProvider) Stop() error {
 func (sp *StormStoreTrackingProvider) Filter(dataConsumer string, dataOwner string, measurementType string, from time.Time, to time.Time) ([]commons.TrackingData, error) {
 
 	var data []commons.TrackingData
-	err := sp.db.Select(q.Eq("DataOwnerId", dataOwner), q.Eq("DataConsumerId", dataConsumer), q.Eq("Type", measurementType), q.Gte("Timestamp", from), q.Lte("Timestamp", to)).OrderBy("Timestamp").Find(&data)
+
+	if dataOwner == "" {
+
+		return nil, errors.New("empty data owner for filtering")
+	}
+
+	query := []q.Matcher{q.Eq("DataOwnerId", dataOwner), q.Gte("Timestamp", from), q.Lte("Timestamp", to)}
+	if dataConsumer != "all" {
+		query = append(query, q.Eq("DataConsumerId", dataConsumer))
+	}
+
+	if measurementType != "all" {
+		query = append(query, q.Eq("Type", measurementType))
+	}
+
+	err := sp.db.Select(query...).OrderBy("Timestamp").Find(&data)
 	if err != nil {
 		logrus.Error("Error filtering data:", err)
 		return nil, err

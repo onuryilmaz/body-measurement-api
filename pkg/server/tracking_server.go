@@ -74,7 +74,7 @@ func (r *RESTTracking) filterHandler(w http.ResponseWriter, req *http.Request, p
 	}
 	toTime := time.Unix(toInt, 0)
 
-	logrus.Debugf("Filter REST handler for user %s | type %s | from %v to %v", owner, measurementType, fromTime, toTime)
+	logrus.Debugf("Filter REST handler for owner %s | consumer %s | type %s | from %v to %v", owner, consumer, measurementType, fromTime, toTime)
 
 	data, err := r.datastore.Filter(consumer, owner, measurementType, fromTime, toTime)
 	if err != nil {

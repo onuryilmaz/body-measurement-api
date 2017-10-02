@@ -21,7 +21,6 @@ func NewTrackerGateway(options commons.Options) *TrackerGateway {
 }
 
 func (tr *TrackerGateway) Track(dataConsumer string, dataOwner string, measurementType string, from time.Time, to time.Time) error {
-	logrus.Debug("Track data!")
 
 	if dataConsumer != "" && dataOwner != "" && measurementType != "" {
 		trackingData := &commons.TrackingData{}
@@ -49,5 +48,6 @@ func (tr *TrackerGateway) Track(dataConsumer string, dataOwner string, measureme
 		return errors.New("insufficient data to call tracker")
 	}
 
+	logrus.Debugf("Tracking request is successful for consumer %s | owner %s | type %s | from %v | to %v", dataConsumer, dataOwner, measurementType, from, to)
 	return nil
 }
