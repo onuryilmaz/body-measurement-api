@@ -68,6 +68,10 @@ func (sp *StormStoreTrackingProvider) Filter(dataConsumer string, dataOwner stri
 	}
 
 	err := sp.db.Select(query...).OrderBy("Timestamp").Find(&data)
+
+	if err != nil && err.Error() == "not found" { //TODO also be retuned no data as HTTP method
+		return data, nil
+	}
 	if err != nil {
 		logrus.Error("Error filtering data:", err)
 		return nil, err

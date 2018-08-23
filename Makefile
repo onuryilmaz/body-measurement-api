@@ -19,8 +19,3 @@ test:
 clean:
 	rm cmd/data-api/data-api
 	rm cmd/tracking-api/tracking-api
-
-
-
-docker run -p 9092:9092 data-api:latest --log-level=debug
-docker run -p 9093:9093 tracking-api:latest --log-level=debug
